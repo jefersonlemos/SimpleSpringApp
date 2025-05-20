@@ -92,3 +92,22 @@ module "helm_aws_ebs_csi_driver" {
 
 }
 
+module "ec2" {
+  source = "git::https://github.com/jefersonlemos/terraform.git//modules/ec2"
+
+  project_name = var.project_name
+  ec2_instances = {
+    "app_springboot" = {
+      ami           = data.aws_ami.latest_amazon_linux.id
+      instance_type = "t3a.nano"
+      #TODO - There's a module improvement
+      key_name   = "jlemos_key"
+      monitoring = false
+      subnet_id  = module.vpc.public_subnet_ids[0]
+      #TODO - There's a module improvement
+      vpc_security_group_ids = [
+        module.vpc.default_security_group_id
+      ]
+    }
+  }
+}
