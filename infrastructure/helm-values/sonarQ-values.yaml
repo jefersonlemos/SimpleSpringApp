@@ -12,16 +12,19 @@ service:
   port: 9000
 
 resources:
-  requests:
-    cpu: "500m"
-    memory: "2Gi"
   limits:
-    cpu: "2"
-    memory: "4Gi"
+    cpu: 500m
+    memory: "1.5Gi"
+    ephemeral-storage: 10000M
+  requests:
+    cpu: 100m
+    memory: "1Gi"
+    ephemeral-storage: 1536M  
+
 
 persistence:
   enabled: true
-  storageClass: "gp2-immediate"
+  storageClass: "ebs-gp2"
   size: "4Gi"
 
 postgresql:
@@ -29,6 +32,25 @@ postgresql:
   postgresqlUsername: "sonarUser"
   postgresqlPassword: "sonarPass"
   postgresqlDatabase: "sonarDB"
+  resources:
+    limits:
+      cpu: "100m"
+      memory: "256Mi"
+    requests:
+      cpu: "50m"
+      memory: "128Mi"
+env:
+  - name: SONAR_WEB_JAVAOPTS
+    value: "-Xmx256m -Xms128m -XX:MaxMetaspaceSize=128m"
+  - name: SONAR_CE_JAVAOPTS
+    value: "-Xmx256m -Xms128m -XX:MaxMetaspaceSize=128m"
+  - name: SONAR_SEARCH_JAVAOPTS
+    value: "-Xmx512m -Xms512m -XX:MaxMetaspaceSize=128m"
 
-monitoringPasscodeSecretName: "sonar-monitoring-passcode"
-monitoringPasscodeSecretKey: "myStrongPasscode123"
+
+#TODO - Change this to a secret
+monitoringPasscode: "define_it"
+
+#like here
+# monitoringPasscodeSecretName: "sonar-monitoring-passcode"
+# monitoringPasscodeSecretKey: "myStrongPasscode123"
