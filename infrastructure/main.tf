@@ -79,16 +79,17 @@ module "eks" {
 
 }
 
-module "helm_aws_ebs_csi_driver" {
-  source = "/home/jeferson/1.personal/poc/terraform/modules/helm"  
+module "helm_sonnar_qube" {
+  source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
+  # source = "/home/jeferson/1.personal/poc/terraform/modules/helm"
   
-  name       = "sonarqube"
-  repository = "https://SonarSource.github.io/helm-chart-sonarqube"
-  chart      = "sonarqube"
-  namespace  = "sonarqube"
+  name             = "sonarqube"
+  repository       = "https://SonarSource.github.io/helm-chart-sonarqube"
+  chart            = "sonarqube"
+  namespace        = "sonarqube"
   chart_version    = "2025.2.0"
   create_namespace = true
-  values = "helm-values/sonarQ-values.yaml"
+  values           = "helm-values/sonarQ-values.yaml"
 
 }
 
