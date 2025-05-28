@@ -83,32 +83,15 @@ module "helm_sonnar_qube" {
   source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
   # source = "/home/jeferson/1.personal/poc/terraform/modules/helm"
   
-  name             = "sonarqube"
-  repository       = "https://SonarSource.github.io/helm-chart-sonarqube"
-  chart            = "sonarqube"
-  namespace        = "sonarqube"
-  chart_version    = "2025.2.0"
+module "helm_jenkins" {
+  # source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
+  source = "/home/jeferson/1.personal/poc/terraform/modules/helm"  
+
+  name             = "jenkins"
+  namespace        = "cicd"
+  repository       = "https://charts.jenkins.io"
+  chart            = "jenkins"
+  chart_version    = "5.8.53"
   create_namespace = true
-  values           = "helm-values/sonarQ-values.yaml"
-
-}
-
-module "ec2" {
-  source = "git::https://github.com/jefersonlemos/terraform.git//modules/ec2"
-
-  project_name = var.project_name
-  ec2_instances = {
-    "app_springboot" = {
-      ami           = data.aws_ami.latest_amazon_linux.id
-      instance_type = "t3a.nano"
-      #TODO - There's a module improvement
-      key_name   = "jlemos_key"
-      monitoring = false
-      subnet_id  = module.vpc.public_subnet_ids[0]
-      #TODO - There's a module improvement
-      vpc_security_group_ids = [
-        module.vpc.default_security_group_id
-      ]
-    }
-  }
+  values = "helm-values/jenkins-values.yaml"
 }
