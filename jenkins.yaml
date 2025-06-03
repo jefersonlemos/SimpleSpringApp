@@ -44,9 +44,6 @@ jenkins:
         slaveConnectTimeout: 100
         slaveConnectTimeoutStr: "100"
         yamlMergeStrategy: "override"
-  crumbIssuer:
-    standard:
-      excludeClientIPFromCrumb: true
   disableRememberMe: false
   labelAtoms:
   - name: "agent1"
