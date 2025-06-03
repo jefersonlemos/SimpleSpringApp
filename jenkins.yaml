@@ -44,7 +44,6 @@ jenkins:
         slaveConnectTimeout: 100
         slaveConnectTimeoutStr: "100"
         yamlMergeStrategy: "override"
-  disableRememberMe: false
   labelAtoms:
   - name: "agent1"
   - name: "built-in"
@@ -69,7 +68,6 @@ jenkins:
       name: "agent1"
       remoteFS: "/home/debian/jenkins"
       retentionStrategy: "always"
-  numExecutors: 0
   primaryView:
     all:
       name: "all"
