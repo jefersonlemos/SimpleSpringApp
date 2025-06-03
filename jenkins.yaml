@@ -95,7 +95,6 @@ jenkins:
         - "apiToken"
         - "consoleUrlProvider"
         - "mailer"
-        - "favorite"
         - "myView"
         - preferredProvider:
             providerId: "default"
@@ -132,24 +131,11 @@ security:
   scriptApproval:
     forceSandbox: false
 unclassified:
-  bitbucketEndpointConfiguration:
-    endpoints:
-    - bitbucketCloudEndpoint:
-        enableCache: false
-        manageHooks: false
-        repositoriesCacheDuration: 0
-        teamCacheDuration: 0
   buildDiscarders:
     configuredBuildDiscarders:
     - "jobBuildDiscarder"
   fingerprints:
     fingerprintCleanupDisabled: false
-    storage: "file"
-  gitHubConfiguration:
-    apiRateLimitChecker: ThrottleForNormalize
-  gitHubPluginConfig:
-    hookUrl: "http://jenkins:8080/github-webhook/"
-  junitTestResultStorage:
     storage: "file"
   location:
     adminAddress: "address not configured yet <nobody@nowhere>"
