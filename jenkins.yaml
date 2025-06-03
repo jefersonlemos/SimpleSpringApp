@@ -48,27 +48,14 @@ jenkins:
   - name: "agent1"
   - name: "built-in"
   - name: "jenkins-jenkins-agent"
-  myViewsTabBar: "standard"
-  nodeMonitors:
-  - "architecture"
-  - "clock"
-  - diskSpace:
-      freeSpaceThreshold: "1GiB"
-      freeSpaceWarningThreshold: "2GiB"
-  - "swapSpace"
-  - tmpSpace:
-      freeSpaceThreshold: "1GiB"
-      freeSpaceWarningThreshold: "2GiB"
-  - "responseTime"
+
   nodes:
   - permanent:
       launcher: "inbound"
       name: "agent1"
       remoteFS: "/home/debian/jenkins"
       retentionStrategy: "always"
-  primaryView:
-    all:
-      name: "all"
+
   quietPeriod: 5
   remotingSecurity:
     enabled: true
