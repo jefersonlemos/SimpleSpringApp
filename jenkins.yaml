@@ -48,7 +48,6 @@ jenkins:
   - name: "agent1"
   - name: "built-in"
   - name: "jenkins-jenkins-agent"
-  mode: NORMAL
   myViewsTabBar: "standard"
   nodeMonitors:
   - "architecture"
