@@ -60,7 +60,6 @@ jenkins:
   remotingSecurity:
     enabled: true
   scmCheckoutRetryCount: 0
-  slaveAgentPort: 50000
   updateCenter:
     sites:
     - id: "default"
