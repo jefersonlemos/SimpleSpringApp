@@ -76,10 +76,6 @@ appearance:
   prism:
     theme: PRISM
 security:
-  apiToken:
-    creationOfLegacyTokenEnabled: false
-    tokenGenerationOnCreationEnabled: false
-    usageStatisticsEnabled: true
   cps:
     hideSandbox: false
   gitHooks:
