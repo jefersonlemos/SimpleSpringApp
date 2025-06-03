@@ -1,7 +1,7 @@
 jenkins:
   authorizationStrategy:
     loggedInUsersCanDoAnything:
-      allowAnonymousRead: false
+      allowAnonymousRead: true
   clouds:
   - kubernetes:
       containerCap: 10
