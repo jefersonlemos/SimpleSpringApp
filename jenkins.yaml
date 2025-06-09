@@ -76,8 +76,6 @@ appearance:
   prism:
     theme: PRISM
 security:
-  cps:
-    hideSandbox: false
   gitHooks:
     allowedOnAgents: false
     allowedOnController: false
