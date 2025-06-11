@@ -1246,7 +1246,7 @@ additionalClouds: {}
 
 persistence:
   # -- Enable the use of a Jenkins PVC
-  enabled: true
+  enabled: false
 
   # A manually managed Persistent Volume and Claim
   # Requires persistence.enabled: true
@@ -1261,7 +1261,8 @@ persistence:
   #   set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS & OpenStack)
   # -- Storage class for the PVC
 
-  storageClass: ebs-gp2
+  # storageClass: ebs-gp2
+  storageClass: standard
   # -- Annotations for the PVC
   annotations: {}
   # -- Labels for the PVC
