@@ -513,10 +513,11 @@ controller:
 
     # If true, the init container deletes all the plugin config files and Jenkins Config as Code overwrites any existing configuration
     # -- Whether Jenkins Config as Code should overwrite any existing configuration
-    overwriteConfiguration: false
+    overwriteConfiguration: true
     # -- Remote URLs for configuration files.
-    configUrls: []
+    configUrls:
     # - https://acme.org/jenkins.yaml
+    - https://raw.githubusercontent.com/jefersonlemos/SimpleSpringApp/refs/heads/main/jenkins.yaml
     # -- List of Jenkins Config as Code scripts
     configScripts: {}
     #  welcome-message: |
@@ -546,7 +547,7 @@ controller:
     # -- Jenkins Config as Code Authorization Strategy-section
     authorizationStrategy: |-
       loggedInUsersCanDoAnything:
-        allowAnonymousRead: false
+        allowAnonymousRead: true
 
     # -- Annotations for the JCasC ConfigMap
     configMapAnnotations: {}
