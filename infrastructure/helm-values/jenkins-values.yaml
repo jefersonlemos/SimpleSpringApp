@@ -403,12 +403,14 @@ controller:
   # Plugins will be installed during Jenkins controller start
   # -- List of Jenkins plugins to install. If you don't want to install plugins, set it to `false`
   installPlugins:
-    - blueocean:1.27.19
-    - json-path-api:2.9.0-138.vc943da_d833b_6
-    - kubernetes:4324.vfec199a_33512
+    # - blueocean:1.27.19
+    - json-path-api:2.9.0-148.v22a_7ffe323ce
+    - kubernetes:4353.vb_47977da_9417
     - workflow-aggregator:608.v67378e9d3db_1
     - git:5.7.0
-    - configuration-as-code:1953.v148f87d74b_1e
+    - configuration-as-code:1971.vf9280461ea_89
+    - sonar-quality-gates:352.vdcdb_d7994fb_6
+    - sonar:2.18
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
