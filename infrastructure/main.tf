@@ -76,12 +76,26 @@ module "eks" {
     }
   }
 
+#Deploy steps
+resource "null_resource" "run_s3_copy_script" {
+  provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      host        = aws_instance.my_instance.public_ip
+      private_key = file(var.private_key_path)
+    }
 
+    inline = [
+      "echo 'Starting S3 file copy...'",
+      "aws s3 cp s3://${var.s3_bucket}/${var.s3_key} /tmp/${var.local_filename}",
+      "echo 'File copied from S3.'"
+    ]
+  }
+
+  depends_on = [aws_instance.my_instance]
 }
 
-module "helm_sonnar_qube" {
-  source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
-  # source = "/home/jeferson/1.personal/poc/terraform/modules/helm"
   
 module "helm_jenkins" {
   # source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
