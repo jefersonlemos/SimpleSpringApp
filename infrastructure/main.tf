@@ -98,24 +98,19 @@ resource "null_resource" "run_s3_copy_script" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      host        = aws_instance.my_instance.public_ip
-      private_key = file(var.private_key_path)
+      host        = module.ec2.instances["app_springboot"].private_ip
+      private_key = module.key_pair.key_pair_name
     }
 
     inline = [
       "echo 'Starting S3 file copy...'",
-      "aws s3 cp s3://${var.s3_bucket}/${var.s3_key} /tmp/${var.local_filename}",
+      "aws s3 cp s3://spring-boot-app-demo bucket/spring-boot-app-demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
       "echo 'File copied from S3.'"
     ]
   }
 
-  depends_on = [aws_instance.my_instance]
+  depends_on = [module.ec2]
 }
-
-  
-module "helm_jenkins" {
-  # source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
-  source = "/home/jeferson/1.personal/poc/terraform/modules/helm"  
 
   name             = "jenkins"
   namespace        = "cicd"
