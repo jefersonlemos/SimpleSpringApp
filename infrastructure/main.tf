@@ -65,16 +65,32 @@ module "eks" {
       #TODO - Is it possible to give EKS permissions to a group instead of a role ?
       principal_arn = "arn:aws:iam::443370700365:role/EKSAdmin-role"
 
-      policy_associations = {
-        eks_admin = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-          access_scope = {
-            type = "cluster"
-          }
-        }
-      }
+module "key_pair" {
+  source = "terraform-aws-modules/key-pair/aws"
+
+  key_name           = "jlemos_key"
+  create_private_key = true
+}
+
+module "ec2" {
+  source = "git::https://github.com/jefersonlemos/terraform.git//modules/ec2"
+
+  project_name = var.project_name
+  ec2_instances = {
+    "app_springboot" = {
+      ami           = data.aws_ami.latest_amazon_linux.id
+      instance_type = "t3a.nano"
+      #TODO - There's a module improvement
+      key_name   = module.key_pair.key_pair_name
+      monitoring = false
+      subnet_id  = module.vpc.public_subnet_ids[0]
+      #TODO - There's a module improvement
+      vpc_security_group_ids = [
+        module.vpc.default_security_group_id
+      ]
     }
   }
+}
 
 #Deploy steps
 resource "null_resource" "run_s3_copy_script" {
