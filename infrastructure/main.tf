@@ -3,7 +3,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "> 5.0"
     }
   }
 
@@ -39,31 +39,43 @@ module "vpc" {
   }
 }
 
-module "eks" {
-  # source = "git::https://github.com/jefersonlemos/terraform.git//modules/eks"
-  source = "/home/jeferson/1.personal/poc/terraform/modules/eks"
+# module "eks" {
+#   # source = "git::https://github.com/jefersonlemos/terraform.git//modules/eks"
+#   source = "/home/jeferson/1.personal/poc/terraform/modules/eks"
 
-  project_name                   = var.project_name
-  cluster_name                   = local.full_name
-  cluster_version                = "1.32"
-  environment                    = var.environment
-  cluster_endpoint_public_access = true
+#   project_name                   = var.project_name
+#   cluster_name                   = local.full_name
+#   cluster_version                = "1.32"
+#   environment                    = var.environment
+#   cluster_endpoint_public_access = true
 
-  vpc_id = module.vpc.vpc_id
-  #TODO - Add nodes to a private subnet and permit only the public subnet to access the cluster 
-  subnet_ids               = module.vpc.public_subnet_ids
-  control_plane_subnet_ids = module.vpc.public_subnet_ids
+#   vpc_id = module.vpc.vpc_id
+#   #TODO - Add nodes to a private subnet and permit only the public subnet to access the cluster 
+#   subnet_ids               = module.vpc.public_subnet_ids
+#   control_plane_subnet_ids = module.vpc.public_subnet_ids
 
-  #TODO - Add addons
+#   #TODO - Add addons
 
-  #Define admin users
-  define_admin_users                       = true
-  enable_cluster_creator_admin_permissions = false
-  access_entries = {
-    eks_admin = {
-      kubernetes_groups = []
-      #TODO - Is it possible to give EKS permissions to a group instead of a role ?
-      principal_arn = "arn:aws:iam::443370700365:role/EKSAdmin-role"
+#   #Define admin users
+#   define_admin_users                       = true
+#   enable_cluster_creator_admin_permissions = false
+#   access_entries = {
+#     eks_admin = {
+#       kubernetes_groups = []
+#       #TODO - Is it possible to give EKS permissions to a group instead of a role ?
+#       principal_arn = "arn:aws:iam::443370700365:role/EKSAdmin-role"
+
+#       policy_associations = {
+#         eks_admin = {
+#           policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+#           access_scope = {
+#             type = "cluster"
+#           }
+#         }
+#       }
+#     }
+#   }
+# }
 
 module "key_pair" {
   source = "terraform-aws-modules/key-pair/aws"
@@ -92,31 +104,61 @@ module "ec2" {
   }
 }
 
+#TODO - Add the SG rule to allow access from EKS
+
+#TODO - Create the App Bucket to store the application files  
+#spring-boot-app-demo bucket
+
+resource "aws_s3_bucket" "application_bucket" {
+  bucket = "spring-boot-app-demo-bucket"
+}
+
 #Deploy steps
-resource "null_resource" "run_s3_copy_script" {
+resource "null_resource" "deploy_app" {
   provisioner "remote-exec" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      host        = module.ec2.instances["app_springboot"].private_ip
-      private_key = module.key_pair.key_pair_name
+      host        = module.ec2.ec2_instance_private_dns["app_springboot"]
+      private_key = module.key_pair.private_key_pem
     }
 
     inline = [
-      "echo 'Starting S3 file copy...'",
-      "aws s3 cp s3://spring-boot-app-demo bucket/spring-boot-app-demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
-      "echo 'File copied from S3.'"
+      " echo 'Starting deployment of Spring Boot application...'",
+      " kill -9 $(ps aux | grep java | awk '{print $2}') || true ",
+      " echo 'Starting S3 file copy...'",
+      " aws s3 cp s3://spring-boot-app-demo-bucket/spring-boot-app-demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
+      " echo 'Starting application...' ",
+      " nohup java -jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar > /app/spring-boot-app-demo.log 2>&1 &"
     ]
   }
 
   depends_on = [module.ec2]
 }
 
-  name             = "jenkins"
-  namespace        = "cicd"
-  repository       = "https://charts.jenkins.io"
-  chart            = "jenkins"
-  chart_version    = "5.8.53"
-  create_namespace = true
-  values = "helm-values/jenkins-values.yaml"
-}
+
+# module "helm_sonnar_qube" {
+#   # source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
+#   source = "/home/jeferson/1.personal/poc/terraform/modules/helm"
+
+#   name             = "sonarqube"
+#   repository       = "https://SonarSource.github.io/helm-chart-sonarqube"
+#   chart            = "sonarqube"
+#   namespace        = "sonarqube"
+#   chart_version    = "2025.2.0"
+#   create_namespace = true
+#   values           = "helm-values/sonarQ-values.yaml"
+
+# }
+# module "helm_jenkins" {
+#   # source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
+#   source = "/home/jeferson/1.personal/poc/terraform/modules/helm"  
+
+#   name             = "jenkins"
+#   namespace        = "cicd"
+#   repository       = "https://charts.jenkins.io"
+#   chart            = "jenkins"
+#   chart_version    = "5.8.53"
+#   create_namespace = true
+#   values = "helm-values/jenkins-values.yaml"
+# }
