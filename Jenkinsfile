@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh "cd ${APP_DIR} && mvn clean install -DskipTests"
+                    sh "cd ${APP_DIR} && ls -lhart && mvn clean install -DskipTests"
                 }
             }
         }
