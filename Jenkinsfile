@@ -9,14 +9,14 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh "cd ${APP_DIR} && ls -lhart && mvn clean install -DskipTests"
+                    sh "mvn clean install -DskipTests"
                 }
             }
         }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv("sonarQube") {
-                    sh "cd ${APP_DIR} && mvn clean verify sonar:sonar -Dsonar.projectKey=springBootApp -Dsonar.projectName='springBootApp'"
+                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=springBootApp -Dsonar.projectName='springBootApp'"
                 }
             }
 
