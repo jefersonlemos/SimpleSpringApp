@@ -8,7 +8,7 @@ jenkins:
       name: "kubernetes"
       namespace: "cicd"
       podLabels:
-      - key: "jenkins/jenkins-jenkins-agent"
+      - key: "jefoso/jenkins-jenkins-agent"
         value: "true"
       serverUrl: "https://kubernetes.default"
       skipTlsVerify: true
