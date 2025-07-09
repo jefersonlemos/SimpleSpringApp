@@ -54,3 +54,20 @@ variable "access_entries" {
   type        = any
   default     = {}
 }
+
+
+#JENKINS
+
+variable "jenkins_admin_username" {
+  description = "The username for the Jenkins admin user"
+  type        = string
+  default     = "controller.admin.username" # Default Jenkins admin username
+  sensitive = true
+}
+
+variable "jenkins_admin_password" {
+  description = "The password for the Jenkins admin user"
+  type        = string
+  default     = "controller.admin.password" # Default Jenkins admin password
+  sensitive = true
+}

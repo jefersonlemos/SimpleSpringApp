@@ -29,10 +29,10 @@ jenkins:
             successThreshold: 0
             timeoutSeconds: 0
           name: "jnlp"
-          resourceLimitCpu: "512m"
+          resourceLimitCpu: "300m"
           resourceLimitMemory: "512Mi"
-          resourceRequestCpu: "512m"
-          resourceRequestMemory: "512Mi"
+          resourceRequestCpu: "100m"
+          resourceRequestMemory: "256Mi"
           workingDir: "/home/jenkins/agent"
         id: "174113db8a5ceca7db0e1a3d23f9849067ab48381bf89987b3b9b5739c3c62af"
         label: "jenkins-jenkins-agent"
