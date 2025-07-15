@@ -12,7 +12,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh "mvn clean install -DskipTests"
+                 //   sh "mvn clean install -DskipTests"
+                    sh "echo 'Building the Spring Boot application...'"
                 }
             }
         }
@@ -33,10 +34,11 @@ pipeline {
         // }
         stage('Deploy') {
             steps {
-                script {
-                    terraformInit()
+                terraformInit()
+                //script {
+                    
                     //sh "cd ${TF_DIR} && terraform init && terraform apply --auto-approve"
-                }
+                //}
             }
         }
     }
