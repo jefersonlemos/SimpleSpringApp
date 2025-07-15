@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TF_DIR = './terraform'
+        TF_DIR = './infrastructure'
         APP_DIR = './src'
     }
     stages {
