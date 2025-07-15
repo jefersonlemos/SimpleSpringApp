@@ -34,11 +34,11 @@ pipeline {
         // }
         stage('Deploy') {
             steps {
-                terraformInit()
-                //script {
+                //terraformInit()
+                script {
                     
-                    //sh "cd ${TF_DIR} && terraform init && terraform apply --auto-approve"
-                //}
+                    sh "cd ${TF_DIR} && terraform init && terraform apply --auto-approve"
+                }
             }
         }
     }
