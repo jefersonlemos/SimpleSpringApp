@@ -5,7 +5,8 @@ pipeline {
         TF_DIR = './infrastructure'
         APP_DIR = './src'
         TERRAFORM_HOME = tool name: 'terraform', type: 'org.jenkinsci.plugins.terraform.TerraformInstallation'
-        PATH = "${TERRAFORM_HOME}:${env.PATH}"        
+        PATH = "${TERRAFORM_HOME}:${env.PATH}"       
+        TF_ROOT = 'infrastructure/' 
     }
     stages {
         stage('Build') {
@@ -33,7 +34,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh "cd ${TF_DIR} && terraform init && terraform apply --auto-approve"
+                    terraformInit()
+                    //sh "cd ${TF_DIR} && terraform init && terraform apply --auto-approve"
                 }
             }
         }
