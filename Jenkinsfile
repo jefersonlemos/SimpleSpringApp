@@ -13,21 +13,21 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv("sonarQube") {
-                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=springBootApp -Dsonar.projectName='springBootApp'"
-                }
-            }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv("sonarQube") {
+        //             sh "mvn clean verify sonar:sonar -Dsonar.projectKey=springBootApp -Dsonar.projectName='springBootApp'"
+        //         }
+        //     }
 
-        }        
-        stage('Sonar QG') {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }   
-            }
-        }
+        // }        
+        // stage('Sonar QG') {
+        //     steps {
+        //         timeout(time: 5, unit: 'MINUTES') {
+        //             waitForQualityGate abortPipeline: true
+        //         }   
+        //     }
+        // }
         stage('Deploy') {
             steps {
                 script {
