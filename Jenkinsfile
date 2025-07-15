@@ -4,6 +4,8 @@ pipeline {
     environment {
         TF_DIR = './infrastructure'
         APP_DIR = './src'
+        TERRAFORM_HOME = tool name: 'terraform', type: 'org.jenkinsci.plugins.terraform.TerraformInstallation'
+        PATH = "${TERRAFORM_HOME}:${env.PATH}"        
     }
     stages {
         stage('Build') {
