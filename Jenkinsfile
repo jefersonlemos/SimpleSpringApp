@@ -7,6 +7,7 @@ pipeline {
         TERRAFORM_HOME = tool name: 'terraform', type: 'org.jenkinsci.plugins.terraform.TerraformInstallation'
         PATH = "${TERRAFORM_HOME}:${env.PATH}"       
         TF_ROOT = 'infrastructure/' 
+        TF_LOG = 'DEBUG'
     }
     stages {
         stage('Build') {
