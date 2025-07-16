@@ -1336,7 +1336,8 @@ serviceAccount:
   #  -- The name of the ServiceAccount to be used by access-controlled resources
   name:
   # -- Configures annotations for the ServiceAccount
-  annotations: {}
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::077210449609:role/jenkins-role
   # -- Configures extra labels for the ServiceAccount
   extraLabels: {}
   # -- Controller ServiceAccount image pull secret
