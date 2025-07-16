@@ -40,8 +40,8 @@ module "vpc" {
 }
 
 module "eks" {
-  # source = "git::https://github.com/jefersonlemos/terraform.git//modules/eks"
-  source = "/home/jeferson/1.personal/POC/SpringApp/terraform/modules/eks"
+  source = "git::https://github.com/jefersonlemos/terraform.git//modules/eks"
+  # source = "/home/jeferson/1.personal/POC/SpringApp/terraform/modules/eks"
 
   project_name                   = var.project_name
   cluster_name                   = local.full_name
@@ -85,8 +85,8 @@ module "key_pair" {
 }
 
 module "ec2" {
-  # source = "git::https://github.com/jefersonlemos/terraform.git//modules/ec2"
-  source = "/home/jeferson/1.personal/POC/SpringApp/terraform/modules/ec2"
+  source = "git::https://github.com/jefersonlemos/terraform.git//modules/ec2"
+  # source = "/home/jeferson/1.personal/POC/SpringApp/terraform/modules/ec2"
 
   project_name = var.project_name
   ec2_instances = {
@@ -152,8 +152,8 @@ resource "null_resource" "deploy_app" {
 
 # }
 module "helm_jenkins" {
-  # source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
-  source = "/home/jeferson/1.personal/POC/SpringApp/terraform/modules/helm"
+  source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
+  # source = "/home/jeferson/1.personal/POC/SpringApp/terraform/modules/helm"
 
   name             = "jenkins"
   namespace        = "cicd"
