@@ -35,19 +35,15 @@ pipeline {
         //         }   
         //     }
         // }
-       stage('Deploy') {
-        steps {
-            script {
-                withCredentials([[
-                    credentialsId: 'jeferson',
-                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                ]]) {
-                    sh "cd ${TF_DIR} && terraform init && terraform plan"
-                    sh "cd ${TF_DIR} && terraform apply -auto-approve"
+        stage('Deploy') {
+            steps {
+                withCredentials([[ $class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'jeferson']]){
+                    script {
+                        sh "cd ${TF_DIR} && terraform init && terraform plan"
+                        sh "cd ${TF_DIR} && terraform apply -auto-approve"
+                    }
                 }
             }
-        }
         }
     }
 }
