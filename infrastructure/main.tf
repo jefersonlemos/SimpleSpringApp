@@ -138,19 +138,19 @@ resource "null_resource" "deploy_app" {
 }
 
 
-module "helm_sonnar_qube" {
-  # source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
-  source = "/home/jeferson/1.personal/POC/SpringApp/terraform/modules/helm"
+# module "helm_sonnar_qube" {
+#   # source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
+#   source = "/home/jeferson/1.personal/POC/SpringApp/terraform/modules/helm"
 
-  name             = "sonarqube"
-  repository       = "https://SonarSource.github.io/helm-chart-sonarqube"
-  chart            = "sonarqube"
-  namespace        = "sonarqube"
-  chart_version    = "2025.2.0"
-  create_namespace = true
-  values           = "helm-values/sonarQ-values.yaml"
+#   name             = "sonarqube"
+#   repository       = "https://SonarSource.github.io/helm-chart-sonarqube"
+#   chart            = "sonarqube"
+#   namespace        = "sonarqube"
+#   chart_version    = "2025.2.0"
+#   create_namespace = true
+#   values           = "helm-values/sonarQ-values.yaml"
 
-}
+# }
 module "helm_jenkins" {
   # source = "git::https://github.com/jefersonlemos/terraform.git//modules/helm"
   source = "/home/jeferson/1.personal/POC/SpringApp/terraform/modules/helm"
