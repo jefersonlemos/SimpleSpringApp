@@ -413,8 +413,7 @@ controller:
     - sonar:2.18
     - terraform:1.0.10
     - s3:508.vc5478ef36921
-
-    248.v78a_dcfc9db_ff
+    - aws-credentials:248.v78a_dcfc9db_ff
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
