@@ -1,3 +1,12 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - aws:
+          accessKey: "AKIARD6QZ63E6NUPVA6Y"
+          id: "jeferson"
+          scope: GLOBAL
+          secretKey: "{AQAAABAAAAAwc5YCqgSC9Da40DkRraUIaa8JJ9cCOwEf1AM8W0ekYYCHPuPzuuMcbdQxWSICtMF+l/+ROYYxf2GDTP01QiukxQ==}"
 jenkins:
   clouds:
   - kubernetes:
@@ -10,6 +19,8 @@ jenkins:
       podLabels:
       - key: "jefoso/jenkins-jenkins-agent"
         value: "true"
+      podRetention: "always"
+      retentionTimeout: 30
       serverUrl: "https://kubernetes.default"
       skipTlsVerify: true
       templates:
@@ -35,12 +46,13 @@ jenkins:
           resourceRequestMemory: "512Mi"
           workingDir: "/home/jenkins/agent"
         id: "174113db8a5ceca7db0e1a3d23f9849067ab48381bf89987b3b9b5739c3c62af"
+        idleMinutes: 30
+        idleMinutesStr: "30"
         label: "jenkins-jenkins-agent"
-        name: "default"
+        name: "jenkins"
         namespace: "cicd"
-        nodeUsageMode: "NORMAL"
-        podRetention: "never"
-        serviceAccount: "default"
+        nodeUsageMode: NORMAL
+        serviceAccount: "jenkins"
         slaveConnectTimeout: 100
         slaveConnectTimeoutStr: "100"
         yamlMergeStrategy: "override"
@@ -111,6 +123,22 @@ tool:
     installations:
     - home: "git"
       name: "Default"
+  maven:
+    installations:
+    - name: "mvn"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.9.11"
   mavenGlobalConfig:
     globalSettingsProvider: "standard"
     settingsProvider: "standard"
+  terraform:
+    installations:
+    - name: "terraform"
+      properties:
+      - installSource:
+          installers:
+          - terraformInstaller:
+              id: "50708-linux-amd64"
