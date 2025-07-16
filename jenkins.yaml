@@ -14,7 +14,7 @@ jenkins:
       containerCapStr: "10"
       jenkinsTunnel: "jenkins-agent.cicd.svc.cluster.local:50000"
       jenkinsUrl: "http://jenkins.cicd.svc.cluster.local:8080"
-      name: "kubernetes"
+      name: "kubernito"
       namespace: "cicd"
       podLabels:
       - key: "jefoso/jenkins-jenkins-agent"
@@ -40,8 +40,8 @@ jenkins:
             successThreshold: 0
             timeoutSeconds: 0
           name: "jnlp"
-          resourceLimitCpu: "512m"
-          resourceLimitMemory: "512Mi"
+          resourceLimitCpu: "1"
+          resourceLimitMemory: "2G"
           resourceRequestCpu: "512m"
           resourceRequestMemory: "512Mi"
           workingDir: "/home/jenkins/agent"
