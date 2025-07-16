@@ -412,6 +412,7 @@ controller:
     - sonar-quality-gates:352.vdcdb_d7994fb_6
     - sonar:2.18
     - terraform:1.0.10
+    - s3:508.vc5478ef36921
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies

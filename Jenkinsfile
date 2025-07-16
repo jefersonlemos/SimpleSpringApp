@@ -15,9 +15,8 @@ pipeline {
                  //   sh "mvn clean install -DskipTests"
                     sh """
                         echo 'Building the Spring Boot application...'
-                        echo 'Starting S3 file copy...'",
-                        aws s3 cp s3://spring-boot-app-demo-bucket/spring-boot-app-demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
                     """
+                    s3Upload bucket: 'spring-boot-app-demo-bucket', file: '/src/target/spring-boot-app-demo-0.0.1-SNAPSHOT.jar', path: 'deployments/spring-boot-app-demo-0.0.1-SNAPSHOT.jar'
                 }
             }
         }
@@ -38,10 +37,9 @@ pipeline {
         // }
         stage('Deploy') {
             steps {
-                //terraformInit()
                 script {
                     
-                    sh "cd ${TF_DIR} && terraform init && terraform apply --auto-approve"
+                    sh "cd ${TF_DIR} && terraform init && terraform plan"
                 }
             }
         }
