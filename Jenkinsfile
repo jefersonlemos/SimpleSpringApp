@@ -13,7 +13,11 @@ pipeline {
             steps {
                 script {
                  //   sh "mvn clean install -DskipTests"
-                    sh "echo 'Building the Spring Boot application...'"
+                    sh """
+                        echo 'Building the Spring Boot application...'
+                        echo 'Starting S3 file copy...'",
+                        aws s3 cp s3://spring-boot-app-demo-bucket/spring-boot-app-demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
+                    """
                 }
             }
         }

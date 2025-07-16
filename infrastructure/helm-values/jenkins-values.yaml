@@ -405,12 +405,13 @@ controller:
   installPlugins:
     # - blueocean:1.27.19
     - json-path-api:2.9.0-148.v22a_7ffe323ce
-    - kubernetes:4356.vfa_556c21f086
+    - kubernetes:4358.vcfd9c5a_0a_f51
     - workflow-aggregator:608.v67378e9d3db_1
     - git:5.7.0
     - configuration-as-code:1971.vf9280461ea_89
     - sonar-quality-gates:352.vdcdb_d7994fb_6
     - sonar:2.18
+    - terraform:1.0.10
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
@@ -1247,7 +1248,7 @@ additionalClouds: {}
 
 persistence:
   # -- Enable the use of a Jenkins PVC
-  enabled: false
+  enabled: true
 
   # A manually managed Persistent Volume and Claim
   # Requires persistence.enabled: true
@@ -1262,8 +1263,8 @@ persistence:
   #   set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS & OpenStack)
   # -- Storage class for the PVC
 
-  # storageClass: ebs-gp2
-  storageClass: standard
+  storageClass: ebs-gp2
+  # storageClass: standard
   # -- Annotations for the PVC
   annotations: {}
   # -- Labels for the PVC
