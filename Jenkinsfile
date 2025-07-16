@@ -38,13 +38,13 @@ pipeline {
         // }
         stage('Deploy') {
             steps {
-                withCredentials([[ $class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'jeferson']]){
-                    script {
-                        sh "env | sort"
-                        sh "cd ${TF_DIR} && terraform init && terraform plan"
-                        sh "cd ${TF_DIR} && terraform apply -auto-approve"
-                    }
+                // withCredentials([[ $class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'jeferson']]){
+                script {
+                    sh "env | sort"
+                    sh "cd ${TF_DIR} && terraform init && terraform plan"
+                    sh "cd ${TF_DIR} && terraform apply -auto-approve"
                 }
+                // }
             }
         }
     }
