@@ -16,7 +16,7 @@ pipeline {
                     sh """
                         echo 'Building the Spring Boot application...'
                     """
-                    s3Upload bucket: 'spring-boot-app-demo-bucket', file: '/src/target/spring-boot-app-demo-0.0.1-SNAPSHOT.jar', path: 'deployments/spring-boot-app-demo-0.0.1-SNAPSHOT.jar'
+                    // s3Upload bucket: 'spring-boot-app-demo-bucket', file: '/src/target/spring-boot-app-demo-0.0.1-SNAPSHOT.jar', path: 'deployments/spring-boot-app-demo-0.0.1-SNAPSHOT.jar'
                 }
             }
         }
