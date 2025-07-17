@@ -135,6 +135,10 @@ resource "null_resource" "deploy_app" {
   }
 
   depends_on = [module.ec2]
+
+  triggers = {
+    always_run = "${timestamp()}"
+  }
 }
 
 
