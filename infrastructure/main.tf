@@ -123,18 +123,19 @@ resource "aws_s3_bucket" "application_bucket" {
 
 #Deploy steps
 resource "null_resource" "deploy_app" {
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    host        = module.ec2.ec2_instance_private_dns["app_springboot"]
+    private_key = module.key_pair.private_key_pem
+  }
+
   provisioner "file" {
     source      = "deploy.sh"
     destination = "/app/deploy.sh"
   }
-  provisioner "remote-exec" {
-    connection {
-      type        = "ssh"
-      user        = "ec2-user"
-      host        = module.ec2.ec2_instance_private_dns["app_springboot"]
-      private_key = module.key_pair.private_key_pem
-    }
 
+  provisioner "remote-exec" {
     inline = [
       " echo 'Starting deployment of Spring Boot application...'",
       " sudo chmod +x /app/deploy.sh",
