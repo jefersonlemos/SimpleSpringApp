@@ -84,6 +84,13 @@ module "key_pair" {
   create_private_key = true
 }
 
+resource "local_file" "ec2_private_key" {
+  content         = module.key_pair.private_key_pem
+  filename        = "${path.module}/ec2-key.pem"
+  file_permission = "0600"
+}
+
+
 module "ec2" {
   source = "git::https://github.com/jefersonlemos/terraform.git//modules/ec2"
   # source = "/home/jeferson/1.personal/POC/SpringApp/terraform/modules/ec2"
@@ -101,6 +108,7 @@ module "ec2" {
       vpc_security_group_ids = [
         module.vpc.default_security_group_id
       ]
+      iam_instance_profile = aws_iam_instance_profile.ec2_s3_access.name
     }
   }
 }
