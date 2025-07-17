@@ -13,11 +13,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                 //   sh "mvn clean install -DskipTests"
-                    sh """
-                        echo 'Building the Spring Boot application...'
-                    """
-                    // s3Upload bucket: 'spring-boot-app-demo-bucket', file: '/src/target/spring-boot-app-demo-0.0.1-SNAPSHOT.jar', path: 'deployments/spring-boot-app-demo-0.0.1-SNAPSHOT.jar'
+                    sh "mvn clean install -DskipTests"
+                    s3Upload bucket: 'spring-boot-app-demo-bucket', file: '/src/target/spring-boot-app-demo-0.0.1-SNAPSHOT.jar', path: 'deployments/spring-boot-app-demo-0.0.1-SNAPSHOT.jar'
                 }
             }
         }
@@ -38,13 +35,9 @@ pipeline {
         // }
         stage('Deploy') {
             steps {
-                // withCredentials([[ $class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'jeferson']]){
                 script {
-                    sh "env | sort"
-                    sh "cd ${TF_DIR} && terraform init && terraform plan"
-                    sh "cd ${TF_DIR} && terraform apply -auto-approve"
+                    sh "cd ${TF_DIR} && terraform init && terraform apply -auto-approve"
                 }
-                // }
             }
         }
     }

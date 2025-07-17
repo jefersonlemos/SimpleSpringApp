@@ -32,7 +32,7 @@ jenkins:
           - envVar:
               key: "JENKINS_URL"
               value: "http://jenkins.cicd.svc.cluster.local:8080/"
-          image: "jefoso/jenkins-agent"
+          image: "jefoso/jenkins-agent:latest"
           livenessProbe:
             failureThreshold: 0
             initialDelaySeconds: 0
