@@ -133,13 +133,11 @@ resource "null_resource" "deploy_app" {
 
     inline = [
       " echo 'Starting deployment of Spring Boot application...'",
-      "sudo yum update -y",
-      "sudo amazon-linux-extras install java-openjdk17 -y",
-      "java -version",
+      " sudo yum update -y",
+      " sudo yum install java-17-amazon-corretto-headless -y",
       " kill -9 $(ps aux | grep java | awk '{print $2}') || true ",
       " echo 'Starting S3 file copy...'",
       " sudo mkdir -p /app && sudo aws s3 cp s3://spring-boot-app-demo-bucket/deployments/demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
-      "pwd && ls -lhart && ls -lhart /app",
       " echo 'Starting application...' ",
       " sudo nohup java -jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar > /app/spring-boot-app-demo.log 2>&1 &"
     ]
