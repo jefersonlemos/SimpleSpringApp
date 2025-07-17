@@ -141,7 +141,7 @@ resource "null_resource" "deploy_app" {
       " sudo chown -R ec2-user: /app",
       " aws s3 cp s3://spring-boot-app-demo-bucket/deployments/demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
       " echo 'Starting application...' ",
-      " java -jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar"
+      " java -jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
     ]
   }
 
