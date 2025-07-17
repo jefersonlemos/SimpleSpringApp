@@ -123,6 +123,10 @@ resource "aws_s3_bucket" "application_bucket" {
 
 #Deploy steps
 resource "null_resource" "deploy_app" {
+  provisioner "file" {
+    source      = "deploy.sh"
+    destination = "/app/deploy.sh"
+  }
   provisioner "remote-exec" {
     connection {
       type        = "ssh"
@@ -133,8 +137,8 @@ resource "null_resource" "deploy_app" {
 
     inline = [
       " echo 'Starting deployment of Spring Boot application...'",
-      " sudo chmod +x deploy.sh",
-      " sudo ./deploy.sh",
+      " sudo chmod +x /app/deploy.sh",
+      " sudo ./app/deploy.sh",
     ]
   }
 
