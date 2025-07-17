@@ -139,12 +139,10 @@ resource "null_resource" "deploy_app" {
       " echo 'Starting S3 file copy...'",
       " sudo mkdir -p /app",
       " sudo chown -R ec2-user: /app",
+      " aws s3 cp s3://spring-boot-app-demo-bucket/deployments/demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
       " echo 'Starting application...' ",
+      " nohup java -jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar >> /app/spring-boot-app-demo.log 2>&1 & disown",
     ]
-
-  provisioner "local-exec" {  
-      command = "ssh -o 'StrictHostKeyChecking no' -i ${module.key_pair.private_key_pem} ec2-user@${module.ec2.ec2_instance_private_dns["app_springboot"]} 'nohup java -jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar >> /app/spring-boot-app-demo.log 2>&1 &'"
-  }
 
   depends_on = [module.ec2]
 
