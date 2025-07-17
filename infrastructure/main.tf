@@ -136,11 +136,8 @@ resource "null_resource" "deploy_app" {
   }
 
   provisioner "remote-exec" {
-    inline = [
-      " echo 'Starting deployment of Spring Boot application...'",
-      " sudo chmod +x /app/deploy.sh",
-      " sudo /app/deploy.sh",
-    ]
+    script = "/app/deploy.sh"
+
   }
 
   depends_on = [module.ec2]
