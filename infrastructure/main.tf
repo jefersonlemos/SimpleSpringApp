@@ -134,7 +134,7 @@ resource "null_resource" "deploy_app" {
     inline = [
       " echo 'Starting deployment of Spring Boot application...'",
       "sudo yum update -y",
-      "sudo amazon-linux-extras install java-openjdk11 -y",
+      "sudo amazon-linux-extras install java-openjdk17 -y",
       "java -version",
       " kill -9 $(ps aux | grep java | awk '{print $2}') || true ",
       " echo 'Starting S3 file copy...'",
