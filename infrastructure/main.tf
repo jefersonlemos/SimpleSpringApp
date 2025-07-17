@@ -139,7 +139,7 @@ resource "null_resource" "deploy_app" {
     inline = [
       " echo 'Starting deployment of Spring Boot application...'",
       " sudo chmod +x /app/deploy.sh",
-      " sudo ./app/deploy.sh",
+      " sudo /app/deploy.sh",
     ]
   }
 
