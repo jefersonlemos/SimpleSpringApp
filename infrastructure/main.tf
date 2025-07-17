@@ -136,6 +136,7 @@ resource "null_resource" "deploy_app" {
       " kill -9 $(ps aux | grep java | awk '{print $2}') || true ",
       " echo 'Starting S3 file copy...'",
       " aws s3 cp s3://spring-boot-app-demo-bucket/deployments/demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
+      "ls -lhart /app/",
       " echo 'Starting application...' ",
       " nohup java -jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar > /app/spring-boot-app-demo.log 2>&1 &"
     ]
