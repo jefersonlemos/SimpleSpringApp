@@ -120,7 +120,7 @@ resource "null_resource" "deploy_app" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      host        = module.ec2.ec2_instance_public_ip["app_springboot"]
+      host        = module.ec2.ec2_instance_private_dns["app_springboot"]
       private_key = module.key_pair.private_key_pem
     }
 
