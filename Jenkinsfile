@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    mvn clean install -DskipTests
+                    sh "mvn clean install -DskipTests"
                     s3Upload bucket: 'spring-boot-app-demo-bucket', file: 'target/demo-0.0.1-SNAPSHOT.jar', path: 'deployments/spring-boot-app-demo-0.0.1-SNAPSHOT.jar'
                 }
             }
