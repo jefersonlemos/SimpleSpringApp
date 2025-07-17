@@ -135,10 +135,10 @@ resource "null_resource" "deploy_app" {
       " echo 'Starting deployment of Spring Boot application...'",
       " kill -9 $(ps aux | grep java | awk '{print $2}') || true ",
       " echo 'Starting S3 file copy...'",
-      " mkdir -p /app && aws s3 cp s3://spring-boot-app-demo-bucket/deployments/demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
+      " sudo mkdir -p /app && sudo aws s3 cp s3://spring-boot-app-demo-bucket/deployments/demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
       "pwd && ls -lhart && ls -lhart /app",
       " echo 'Starting application...' ",
-      " nohup java -jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar > /app/spring-boot-app-demo.log 2>&1 &"
+      " sudo nohup java -jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar > /app/spring-boot-app-demo.log 2>&1 &"
     ]
   }
 
