@@ -108,7 +108,6 @@ module "ec2" {
       vpc_security_group_ids = [
         module.vpc.default_security_group_id
       ]
-      iam_instance_profile = aws_iam_instance_profile.ec2_s3_access.name
     }
   }
 }
