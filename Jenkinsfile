@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     sh "mvn clean install -DskipTests"
-                    s3Upload bucket: 'spring-boot-app-demo-bucket', file: 'target/demo-0.0.1-SNAPSHOT.jar', path: 'deployments/spring-boot-app-demo-0.0.1-SNAPSHOT.jar'
+                    s3Upload bucket: 'spring-boot-app-demo-bucket', file: 'target/demo-0.0.1-SNAPSHOT.jar', path: 'deployments/demo-0.0.1-SNAPSHOT.jar'
                 }
             }
         }
