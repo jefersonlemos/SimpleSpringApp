@@ -133,6 +133,9 @@ resource "null_resource" "deploy_app" {
 
     inline = [
       " echo 'Starting deployment of Spring Boot application...'",
+      "sudo yum update -y",
+      "sudo amazon-linux-extras install java-openjdk11 -y",
+      "java -version",
       " kill -9 $(ps aux | grep java | awk '{print $2}') || true ",
       " echo 'Starting S3 file copy...'",
       " sudo mkdir -p /app && sudo aws s3 cp s3://spring-boot-app-demo-bucket/deployments/demo-0.0.1-SNAPSHOT.jar /app/spring-boot-app-demo-0.0.1-SNAPSHOT.jar",
