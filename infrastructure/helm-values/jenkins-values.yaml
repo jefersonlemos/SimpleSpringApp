@@ -414,6 +414,7 @@ controller:
     - terraform:1.0.10
     - s3:508.vc5478ef36921
     - aws-credentials:248.v78a_dcfc9db_ff
+    - pipeline-stage-view:2.38
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies

@@ -7,14 +7,14 @@ pipeline {
         TERRAFORM_HOME = tool name: 'terraform', type: 'org.jenkinsci.plugins.terraform.TerraformInstallation'
         PATH = "${TERRAFORM_HOME}:${env.PATH}"       
         TF_ROOT = 'infrastructure/' 
-        TF_LOG = 'DEBUG'
+        // TF_LOG = 'DEBUG'
     }
     stages {
         stage('Build') {
             steps {
                 script {
-                    sh "mvn clean install -DskipTests"
-                    s3Upload bucket: 'spring-boot-app-demo-bucket', file: '/src/target/spring-boot-app-demo-0.0.1-SNAPSHOT.jar', path: 'deployments/spring-boot-app-demo-0.0.1-SNAPSHOT.jar'
+                    mvn clean install -DskipTests
+                    s3Upload bucket: 'spring-boot-app-demo-bucket', file: 'target/demo-0.0.1-SNAPSHOT.jar', path: 'deployments/spring-boot-app-demo-0.0.1-SNAPSHOT.jar'
                 }
             }
         }
