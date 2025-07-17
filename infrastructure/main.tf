@@ -135,8 +135,8 @@ resource "null_resource" "deploy_app" {
     destination = "/app/deploy.sh"
   }
 
-  provisioner "remote-exec" {
-    script = "/app/deploy.sh"
+  provisioner "local-exec" {
+    command = "bash /app/deploy.sh"
 
   }
 
