@@ -135,9 +135,11 @@ resource "null_resource" "deploy_app" {
     destination = "/app/deploy.sh"
   }
 
-  provisioner "local-exec" {
-    command = "bash /app/deploy.sh"
-
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /app/deploy.sh",
+      "bash /app/deploy.sh"
+    ]
   }
 
   depends_on = [module.ec2]
