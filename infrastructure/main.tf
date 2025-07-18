@@ -138,7 +138,8 @@ resource "null_resource" "deploy_app" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /app/deploy.sh",
-      "bash /app/deploy.sh"
+      "/app/deploy.sh",
+      "sleep 1",
     ]
   }
 
